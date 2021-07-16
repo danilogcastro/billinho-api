@@ -8,13 +8,13 @@ describe Enrollment do
   end
 
   it "valor deve ser maior do que zero" do
-    enrollment = Enrollment.new(amount: 0, installments: 5, due_day: "05/04/2020")
+    enrollment = Enrollment.new(amount: 0, installments: 5, due_day: 4)
     enrollment.student = FactoryBot.create(:student)
     expect(enrollment).to_not be_valid
   end
 
   it "deve ter pelo menos uma parcela" do
-    enrollment = Enrollment.new(amount: 2000, installments: 0, due_day: "05/04/2020" )
+    enrollment = Enrollment.new(amount: 2000, installments: 0, due_day: 4 )
     enrollment.student = FactoryBot.create(:student)
     expect(enrollment).to_not be_valid
   end
