@@ -21,8 +21,13 @@ describe Student do
     expect(student).to_not be_valid
   end
 
-  it "deve conter uma data válida, se presente" do
-    student = Student.new(name: "João da Silva", cpf: "05937966759", payment_method: "boleto", birthdate: 34/07/1998)
-    expect(student).to_not be_valid
+  it "data de nascimento é opcional" do
+    student = Student.new(name: "João da Silva", cpf: "05937966759", payment_method: "boleto", birthdate: nil)
+    expect(student).to be_valid
+  end
+
+  it "deve criar um estudante válido com todas as informações corretas" do
+    student = FactoryBot.build(:student)
+    expect(student).to be_valid
   end
 end
