@@ -1,12 +1,6 @@
 require 'rails_helper'
 
 describe Enrollment do
-  it "valor não pode ser vazio" do
-    enrollment = Enrollment.new(installments: 5, due_day: "05/04/2020")
-    enrollment.student = FactoryBot.create(:student)
-    expect(enrollment).to_not be_valid
-  end
-
   it "valor deve ser maior do que zero" do
     enrollment = Enrollment.new(amount: 0, installments: 5, due_day: 4)
     enrollment.student = FactoryBot.create(:student)
@@ -26,7 +20,15 @@ describe Enrollment do
   end
 
   it "deve criar a matrícula se todos os campos estiverem corretos" do
-    enrollment = FactoryBot.build(:enrollment)
+    enrollment = Enrollment.new(amount: 100, 
+                                installments: 2, 
+                                due_day: 5,
+                                bills_attributes: [
+                                  { amount: 50, due_date: "05/04/2020", status: 'open' },
+                                  { amount: 50, due_date: "05/05/2020", status: 'open' }
+                                ])
+    enrollment.student = FactoryBot.create(:student)
+
     expect(enrollment).to be_valid
   end
 end
