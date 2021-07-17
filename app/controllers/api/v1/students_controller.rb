@@ -7,6 +7,12 @@ class Api::V1::StudentsController < ApplicationController
   end
 
   def create
+    @student = Student.new(student_params)
+    if @student.save
+      render json: { id: @student.id }
+    else
+      render json: { status: 400, message: "Bad request" }
+    end
   end
 
   private
