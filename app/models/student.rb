@@ -1,6 +1,4 @@
 class Student < ApplicationRecord
-  after_save :format_cpf
-
   PAYMENT_METHODS = ["boleto", "credit_card"]
   has_many :enrollments, dependent: :destroy
 
@@ -13,7 +11,7 @@ class Student < ApplicationRecord
     {
       id: id,
       name: name,
-      cpf: cpf,
+      cpf: format_cpf,
       birthdate: birthdate.to_s,
       payment_method: translated_payment
     }
@@ -22,7 +20,6 @@ class Student < ApplicationRecord
   private
   def format_cpf
     formatted_cpf = "#{self.cpf[0..2]}.#{self.cpf[3..5]}.#{self.cpf[6..8]}-#{self.cpf[9..10]}#{self.cpf[11..12]}"
-    self.update_column(:cpf, formatted_cpf)
   end
 
   def translated_payment
