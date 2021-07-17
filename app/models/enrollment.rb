@@ -10,6 +10,17 @@ class Enrollment < ApplicationRecord
   validate :limit_sum
   validate :equal_bills
 
+  def as_json(options = {})
+    {
+      id: id,
+      student_id: student.id,
+      amount: amount,
+      installments: installments,
+      due_day: due_day,
+      bills: bills.as_json
+    }
+  end
+
   def limit_sum
     errors.add(:amount, "valor não pode ser maior do que a soma das parcelas") if amount > bills.map { |record| record.amount }.sum
   end
