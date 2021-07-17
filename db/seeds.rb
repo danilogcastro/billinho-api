@@ -18,20 +18,4 @@ puts "Seeding..."
   puts "Saved #{student.id} - #{student.name}"
 end
 
-50.times do
-  enrollment = Enrollment.new(
-    amount: 1200000,
-    installments: 3,
-    due_day: 5,
-    bills_attributes: [
-      { amount: 400000, due_date: "05/03/2021", status: 'open' }, 
-      { amount: 400000, due_date: "05/04/2021", status: 'open' }, 
-      { amount: 400000, due_date: "05/05/2021", status: 'open' }
-    ]
-  )
-  enrollment.student = Student.sample
-  enrollment.save
-  puts "Salves enrollment #{enrollment.id}"
-end
-
 puts "All done!"
