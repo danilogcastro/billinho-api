@@ -8,6 +8,7 @@ class Api::V1::StudentsController < ApplicationController
 
   def create
     @student = Student.new(student_params)
+    
     if @student.save
       render json: { id: @student.id }
     else
