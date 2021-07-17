@@ -1,4 +1,7 @@
 class Api::V1::EnrollmentsController < ApplicationController
+  include DeviseTokenAuth::Concerns::SetUserByToken
+  before_action :authenticate_api_user!, only: [:create]
+
   def index
     @pagy, @enrollments = pagy(Enrollment.all, items: params[:count])
     render json: { page: params[:page],
