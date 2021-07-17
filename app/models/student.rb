@@ -2,10 +2,10 @@ class Student < ApplicationRecord
   after_save :format_cpf
 
   PAYMENT_METHODS = ["boleto", "credit_card"]
-  has_many :enrollments
+  has_many :enrollments, dependent: :destroy
 
   validates :name, presence: true
-  validates :cpf, presence: true #, uniqueness: true
+  validates :cpf, presence: true, uniqueness: true
   validates :payment_method, inclusion: { in: PAYMENT_METHODS, message: "forma de pagamento deve ser válida" }
   validates_with CpfValidator
 

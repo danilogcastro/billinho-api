@@ -1,5 +1,5 @@
 class Enrollment < ApplicationRecord
-  has_many :bills, inverse_of: :enrollment
+  has_many :bills, inverse_of: :enrollment, dependent: :destroy
   belongs_to :student
   accepts_nested_attributes_for :bills
 
