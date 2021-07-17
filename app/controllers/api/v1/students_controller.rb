@@ -1,6 +1,11 @@
 class Api::V1::StudentsController < ApplicationController
   def index
-    students = Student.all
-    render json: students, status: 200
+    @pagy, @students = pagy(Student.all, items: params[:count])
+    render json: { page: params[:page],
+                  items: @students 
+                 }, status: 200
+  end
+
+  def create
   end
 end
