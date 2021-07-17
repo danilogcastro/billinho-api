@@ -1,4 +1,8 @@
 class Api::V1::StudentsController < ApplicationController
+  def home
+    redirect_to '/api/v1/students?count=5&page=1'
+  end
+
   def index
     @pagy, @students = pagy(Student.all, items: params[:count])
     render json: { page: params[:page],
